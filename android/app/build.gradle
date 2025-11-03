@@ -1,0 +1,115 @@
+    plugins {
+        id "com.android.application"
+        id "kotlin-android"
+        id "dev.flutter.flutter-gradle-plugin"
+        id "com.google.gms.google-services" // ✅ Google Services Plugin (used by Firebase)
+    }
+
+    def localProperties = new Properties()
+    def localPropertiesFile = rootProject.file('local.properties')
+    if (localPropertiesFile.exists()) {
+        localPropertiesFile.withReader('UTF-8') { reader ->
+            localProperties.load(reader)
+        }
+    }
+
+    def keystorePropertiesFile = rootProject.file("keystore.properties")
+    def keystoreProperties = new Properties()
+    if (keystorePropertiesFile.exists()) {
+        keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+    }
+
+    def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
+    if (flutterVersionCode == null) {
+        flutterVersionCode = '2'
+    }
+
+    def flutterVersionName = localProperties.getProperty('flutter.versionName')
+    if (flutterVersionName == null) {
+        flutterVersionName = '1.2'
+    }
+
+    android {
+        namespace "com.rjfruits"
+        compileSdk flutter.compileSdkVersion
+        ndkVersion "26.1.10909125"
+
+        compileSdkVersion 35
+
+        compileOptions {
+            sourceCompatibility JavaVersion.VERSION_1_8
+            targetCompatibility JavaVersion.VERSION_1_8
+            coreLibraryDesugaringEnabled true
+        }
+
+        packagingOptions {
+            doNotStrip "**/*.so"
+        }
+
+        kotlinOptions {
+            jvmTarget = '1.8'
+        }
+
+        sourceSets {
+            main.java.srcDirs += 'src/main/kotlin'
+        }
+
+        lintOptions {
+            abortOnError false
+        }
+
+        defaultConfig {
+            applicationId "com.rjfruits"
+            minSdkVersion 23
+            targetSdkVersion 35
+            versionCode flutterVersionCode.toInteger()
+            versionName flutterVersionName
+        }
+
+        signingConfigs {
+            release {
+                storeFile file(keystoreProperties['storeFile'])
+                storePassword keystoreProperties['storePassword']
+                keyAlias keystoreProperties['keyAlias']
+                keyPassword keystoreProperties['keyPassword']
+            }
+            debug {
+                storeFile file(keystoreProperties['storeFile'])
+                storePassword keystoreProperties['storePassword']
+                keyAlias keystoreProperties['keyAlias']
+                keyPassword keystoreProperties['keyPassword']
+            }
+        }
+
+        buildTypes {
+            release {
+                signingConfig signingConfigs.release
+                minifyEnabled true
+                shrinkResources true
+                proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+                ndk {
+                    debugSymbolLevel 'none' // or 'full' if you want symbols for crash reporting
+                }
+            }
+    //        debug {
+    ////            signingConfig signingConfigs.debug
+    //        }
+        }
+    }
+
+    flutter {
+        source '../..'
+    }
+
+    dependencies {
+        implementation "androidx.core:core-ktx:1.13.1"
+        implementation(platform("com.google.firebase:firebase-bom:32.6.0"))
+
+        // ✅ Add Firebase Messaging
+        implementation 'com.google.firebase:firebase-messaging'
+
+        // Optional: Google Sign-In, keep if needed
+        implementation 'com.google.android.gms:play-services-auth:20.7.0'
+//        coreLibraryDesugaring "com.android.tools:desugar_jdk_libs:2.0.4"
+        coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.1.4'
+    }

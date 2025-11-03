@@ -1,0 +1,2 @@
+/Users/dimasangga/Projects/upwork/rajasthan-dry-fruits/android/app/.cxx/RelWithDebInfo/1v4a273n/x86_64/CMakeFiles/edit_cache.dir
+/Users/dimasangga/Projects/upwork/rajasthan-dry-fruits/android/app/.cxx/RelWithDebInfo/1v4a273n/x86_64/CMakeFiles/rebuild_cache.dir

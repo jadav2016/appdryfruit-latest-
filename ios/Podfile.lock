@@ -1,0 +1,169 @@
+PODS:
+  - AppAuth (1.7.6):
+    - AppAuth/Core (= 1.7.6)
+    - AppAuth/ExternalUserAgent (= 1.7.6)
+  - AppAuth/Core (1.7.6)
+  - AppAuth/ExternalUserAgent (1.7.6):
+    - AppAuth/Core
+  - FBAEMKit (17.1.0):
+    - FBSDKCoreKit_Basics (= 17.1.0)
+  - FBSDKCoreKit (17.1.0):
+    - FBAEMKit (= 17.1.0)
+    - FBSDKCoreKit_Basics (= 17.1.0)
+  - FBSDKCoreKit_Basics (17.1.0)
+  - FBSDKLoginKit (17.1.0):
+    - FBSDKCoreKit (= 17.1.0)
+  - Flutter (1.0.0)
+  - flutter_facebook_auth (7.1.1):
+    - FBSDKLoginKit (~> 17.1.0)
+    - Flutter
+  - flutter_secure_storage (6.0.0):
+    - Flutter
+  - fluttertoast (0.0.2):
+    - Flutter
+  - google_sign_in_ios (0.0.1):
+    - AppAuth (>= 1.7.4)
+    - Flutter
+    - FlutterMacOS
+    - GoogleSignIn (~> 7.1)
+    - GTMSessionFetcher (>= 3.4.0)
+  - GoogleSignIn (7.1.0):
+    - AppAuth (< 2.0, >= 1.7.3)
+    - GTMAppAuth (< 5.0, >= 4.1.1)
+    - GTMSessionFetcher/Core (~> 3.3)
+  - GTMAppAuth (4.1.1):
+    - AppAuth/Core (~> 1.7)
+    - GTMSessionFetcher/Core (< 4.0, >= 3.3)
+  - GTMSessionFetcher (3.5.0):
+    - GTMSessionFetcher/Full (= 3.5.0)
+  - GTMSessionFetcher/Core (3.5.0)
+  - GTMSessionFetcher/Full (3.5.0):
+    - GTMSessionFetcher/Core
+  - image_picker_ios (0.0.1):
+    - Flutter
+  - open_file_ios (0.0.1):
+    - Flutter
+  - path_provider_foundation (0.0.1):
+    - Flutter
+    - FlutterMacOS
+  - permission_handler_apple (9.3.0):
+    - Flutter
+  - printing (1.0.0):
+    - Flutter
+  - razorpay-pod (1.4.0)
+  - razorpay_flutter (1.1.10):
+    - Flutter
+    - razorpay-pod
+  - saver_gallery (0.0.1):
+    - Flutter
+  - share_plus (0.0.1):
+    - Flutter
+  - shared_preferences_foundation (0.0.1):
+    - Flutter
+    - FlutterMacOS
+  - sign_in_with_apple (0.0.1):
+    - Flutter
+  - sqflite_darwin (0.0.4):
+    - Flutter
+    - FlutterMacOS
+  - url_launcher_ios (0.0.1):
+    - Flutter
+
+DEPENDENCIES:
+  - Flutter (from `Flutter`)
+  - flutter_facebook_auth (from `.symlinks/plugins/flutter_facebook_auth/ios`)
+  - flutter_secure_storage (from `.symlinks/plugins/flutter_secure_storage/ios`)
+  - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
+  - google_sign_in_ios (from `.symlinks/plugins/google_sign_in_ios/darwin`)
+  - image_picker_ios (from `.symlinks/plugins/image_picker_ios/ios`)
+  - open_file_ios (from `.symlinks/plugins/open_file_ios/ios`)
+  - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
+  - permission_handler_apple (from `.symlinks/plugins/permission_handler_apple/ios`)
+  - printing (from `.symlinks/plugins/printing/ios`)
+  - razorpay_flutter (from `.symlinks/plugins/razorpay_flutter/ios`)
+  - saver_gallery (from `.symlinks/plugins/saver_gallery/ios`)
+  - share_plus (from `.symlinks/plugins/share_plus/ios`)
+  - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/darwin`)
+  - sign_in_with_apple (from `.symlinks/plugins/sign_in_with_apple/ios`)
+  - sqflite_darwin (from `.symlinks/plugins/sqflite_darwin/darwin`)
+  - url_launcher_ios (from `.symlinks/plugins/url_launcher_ios/ios`)
+
+SPEC REPOS:
+  trunk:
+    - AppAuth
+    - FBAEMKit
+    - FBSDKCoreKit
+    - FBSDKCoreKit_Basics
+    - FBSDKLoginKit
+    - GoogleSignIn
+    - GTMAppAuth
+    - GTMSessionFetcher
+    - razorpay-pod
+
+EXTERNAL SOURCES:
+  Flutter:
+    :path: Flutter
+  flutter_facebook_auth:
+    :path: ".symlinks/plugins/flutter_facebook_auth/ios"
+  flutter_secure_storage:
+    :path: ".symlinks/plugins/flutter_secure_storage/ios"
+  fluttertoast:
+    :path: ".symlinks/plugins/fluttertoast/ios"
+  google_sign_in_ios:
+    :path: ".symlinks/plugins/google_sign_in_ios/darwin"
+  image_picker_ios:
+    :path: ".symlinks/plugins/image_picker_ios/ios"
+  open_file_ios:
+    :path: ".symlinks/plugins/open_file_ios/ios"
+  path_provider_foundation:
+    :path: ".symlinks/plugins/path_provider_foundation/darwin"
+  permission_handler_apple:
+    :path: ".symlinks/plugins/permission_handler_apple/ios"
+  printing:
+    :path: ".symlinks/plugins/printing/ios"
+  razorpay_flutter:
+    :path: ".symlinks/plugins/razorpay_flutter/ios"
+  saver_gallery:
+    :path: ".symlinks/plugins/saver_gallery/ios"
+  share_plus:
+    :path: ".symlinks/plugins/share_plus/ios"
+  shared_preferences_foundation:
+    :path: ".symlinks/plugins/shared_preferences_foundation/darwin"
+  sign_in_with_apple:
+    :path: ".symlinks/plugins/sign_in_with_apple/ios"
+  sqflite_darwin:
+    :path: ".symlinks/plugins/sqflite_darwin/darwin"
+  url_launcher_ios:
+    :path: ".symlinks/plugins/url_launcher_ios/ios"
+
+SPEC CHECKSUMS:
+  AppAuth: d4f13a8fe0baf391b2108511793e4b479691fb73
+  FBAEMKit: cb719c53575a3be86ea873279f30d6a2c4e15881
+  FBSDKCoreKit: ecdb980a24633ccb012700299ceb16d0235e14d2
+  FBSDKCoreKit_Basics: 045101c4a9ef10c845347424d73a29aae02c3e43
+  FBSDKLoginKit: 69eb59b2f839aba635616df6e422acd0ca88030a
+  Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
+  flutter_facebook_auth: 48be46091bd1a5cc5a66055f1228a9d99a28bfaa
+  flutter_secure_storage: d33dac7ae2ea08509be337e775f6b59f1ff45f12
+  fluttertoast: 21eecd6935e7064cc1fcb733a4c5a428f3f24f0f
+  google_sign_in_ios: 4111e87aa5e24a4404f00ea13479f35e571969cc
+  GoogleSignIn: d4281ab6cf21542b1cfaff85c191f230b399d2db
+  GTMAppAuth: f69bd07d68cd3b766125f7e072c45d7340dea0de
+  GTMSessionFetcher: 5aea5ba6bd522a239e236100971f10cb71b96ab6
+  image_picker_ios: c560581cceedb403a6ff17f2f816d7fea1421fc1
+  open_file_ios: 461db5853723763573e140de3193656f91990d9e
+  path_provider_foundation: 2b6b4c569c0fb62ec74538f866245ac84301af46
+  permission_handler_apple: 9878588469a2b0d0fc1e048d9f43605f92e6cec2
+  printing: 233e1b73bd1f4a05615548e9b5a324c98588640b
+  razorpay-pod: cb5b5439697bdda9c57d68a92b3e5b0ce1d2f2f3
+  razorpay_flutter: 84b3bfd206ae9c9c2a9ba585524a1b3d8102b6c1
+  saver_gallery: 76172dc4bf6b40e66d694948ada9ff402304dd87
+  share_plus: c3fef564749587fc939ef86ffb283ceac0baf9f5
+  shared_preferences_foundation: fcdcbc04712aee1108ac7fda236f363274528f78
+  sign_in_with_apple: f3bf75217ea4c2c8b91823f225d70230119b8440
+  sqflite_darwin: 5a7236e3b501866c1c9befc6771dfd73ffb8702d
+  url_launcher_ios: 5334b05cef931de560670eeae103fd3e431ac3fe
+
+PODFILE CHECKSUM: 4305caec6b40dde0ae97be1573c53de1882a07e5
+
+COCOAPODS: 1.16.2

@@ -1,0 +1,2 @@
+/Users/dimasangga/Projects/upwork/rajasthan-dry-fruits/android/app/.cxx/Debug/g1r454k6/armeabi-v7a/CMakeFiles/edit_cache.dir
+/Users/dimasangga/Projects/upwork/rajasthan-dry-fruits/android/app/.cxx/Debug/g1r454k6/armeabi-v7a/CMakeFiles/rebuild_cache.dir
