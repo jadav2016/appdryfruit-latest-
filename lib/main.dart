@@ -20,27 +20,50 @@ import 'package:rjfruits/view_model/service/track_order_view_model.dart';
 import 'package:rjfruits/view_model/shop_view_model.dart';
 import 'package:rjfruits/view_model/user_view_model.dart';
 
-Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message)async {
-  await Firebase.initializeApp();
+/// Make Firebase options available at top-level so background isolates can use them.
+const FirebaseOptions firebaseOptions = FirebaseOptions(
+  apiKey: "AIzaSyAmofluax9-a3W76AsGsJ-Ai1ZogWdu598",
+  projectId: "rajasthan-dry-fruit",
+  storageBucket: "rajasthan-dry-fruit.firebasestorage.app",
+  messagingSenderId: "6073014342",
+  appId: "1:6073014342:android:d864063bdd07beaad5d247",
+);
+
+/// Background message handler for FCM.
+/// Mark with pragma to ensure it is preserved and available to the background isolate.
+@pragma('vm:entry-point')
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  // Only initialize if no app exists in this isolate/process:
+  if (Firebase.apps.isEmpty) {
+    try {
+      await Firebase.initializeApp(options: firebaseOptions);
+    } on FirebaseException catch (e) {
+      // If another part of the app initialized Firebase concurrently, ignore duplicate-app
+      if (e.code != 'duplicate-app') rethrow;
+    }
+  }
+  // handle background message (your handling code)
 }
+
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
-void main() async{
+
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  const FirebaseOptions firebaseOptions = FirebaseOptions(
-    apiKey: "AIzaSyAmofluax9-a3W76AsGsJ-Ai1ZogWdu598",
-    projectId: "rajasthan-dry-fruit",
-    storageBucket: "rajasthan-dry-fruit.firebasestorage.app",
-    messagingSenderId: "6073014342",
-    appId: "1:6073014342:android:d864063bdd07beaad5d247",
-  );
 
+  // Guard initialization so we don't try to initialize more than once.
+  if (Firebase.apps.isEmpty) {
+    try {
+      await Firebase.initializeApp(options: firebaseOptions);
+    } on FirebaseException catch (e) {
+      if (e.code != 'duplicate-app') rethrow;
+      // otherwise, Firebase already initialized — safe to continue
+    }
+  }
 
-  await Firebase.initializeApp(
-    options:
-    firebaseOptions,
-  );
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+
   String fcmToken = await NotificationServices().getDeviceToken();
+
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then(
     (_) {
       runApp(
@@ -55,6 +78,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Ensure NotificationServices does not call Firebase.initializeApp() again.
     NotificationServices().firebaseInit(context);
     NotificationServices().requestNotificationPermission();
     return MultiProvider(
@@ -128,8 +152,8 @@ class SessionHandler extends StatelessWidget {
               Navigator.pushReplacementNamed(context, RoutesName.dashboard));
         } else {
           // No session; navigate to login
-          Future.microtask(() =>
-              Navigator.pushReplacementNamed(context, RoutesName.login));
+          Future.microtask(
+              () => Navigator.pushReplacementNamed(context, RoutesName.login));
         }
 
         return const SizedBox(); // Placeholder widget
