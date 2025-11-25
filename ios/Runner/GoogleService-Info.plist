@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>6073014342-tb7lhitkmgko7om0ov88v8gq5v20r546.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBDNeSQixPDda1chmaCvYwh84Uf1ISWtqg</string>
+	<key>GCM_SENDER_ID</key>
+	<string>6073014342</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.rjfruits</string>
+	<key>PROJECT_ID</key>
+	<string>rajasthan-dry-fruit</string>
+	<key>STORAGE_BUCKET</key>
+	<string>rajasthan-dry-fruit.firebasestorage.app</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:6073014342:ios:e984f6a74d8bece3d5d247</string>
+</dict>
+</plist>
