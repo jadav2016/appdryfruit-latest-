@@ -62,7 +62,7 @@ void main() async {
 
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
-  String fcmToken = await NotificationServices().getDeviceToken();
+  //String fcmToken = await NotificationServices().getDeviceToken();
 
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then(
     (_) {
