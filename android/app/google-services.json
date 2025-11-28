@@ -1,1 +1,39 @@
-{"installed":{"client_id":"176072233182-g8brbpf0ahsc6lvi216rk0m0t5hpdvm5.apps.googleusercontent.com","project_id":"rajistandryfruits","auth_uri":"https://accounts.google.com/o/oauth2/auth","token_uri":"https://oauth2.googleapis.com/token","auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs"}}
+{
+  "project_info": {
+    "project_number": "6073014342",
+    "project_id": "rajasthan-dry-fruit",
+    "storage_bucket": "rajasthan-dry-fruit.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:6073014342:android:d864063bdd07beaad5d247",
+        "android_client_info": {
+          "package_name": "com.rjfruits"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "6073014342-2te8tq4ngi29jnoe3d1b81nc9pn83keb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAmofluax9-a3W76AsGsJ-Ai1ZogWdu598"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "6073014342-2te8tq4ngi29jnoe3d1b81nc9pn83keb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
