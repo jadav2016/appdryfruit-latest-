@@ -1,5 +1,7 @@
 // ignore_for_file: avoid_print, use_build_context_synchronously
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -39,15 +41,14 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     {'label': 'DHL Express (For USA)', 'value': 'DHL Express'},
     {'label': 'Economy (For USA)', 'value': 'Economy'},
     {'label': 'Fast Delivery (For India)', 'value': 'Fast Delivery'},
-
   ];
   final List<DropdownMenuItem<String>> _dropDownMenuItems = menuItems
       .map(
         (item) => DropdownMenuItem<String>(
-      value: item['value'], // like 'normal'
-      child: Text(item['label']!), // like 'Normal'
-    ),
-  )
+          value: item['value'], // like 'normal'
+          child: Text(item['label']!), // like 'Normal'
+        ),
+      )
       .toList();
 
   Color selectedContainerColor = AppColor.primaryColor;
@@ -67,7 +68,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
 
     // Initialize totalPrice with the value from widget if available
     totalPrice =
-    widget.totalPrice != null ? double.parse(widget.totalPrice!) : 0.0;
+        widget.totalPrice != null ? double.parse(widget.totalPrice!) : 0.0;
 
     // Load the selected address from shared preferences
     fetchAddresses();
@@ -81,7 +82,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     });
     try {
       final userPreferences =
-      Provider.of<UserViewModel>(context, listen: false);
+          Provider.of<UserViewModel>(context, listen: false);
       final userModel = await userPreferences.getUser();
       final token = userModel.key;
       final response = await http.get(
@@ -89,7 +90,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
         headers: {
           'Accept': 'application/json',
           'X-CSRFToken':
-          'SlSrUKA34Wtxgek0vbx9jfpCcTylfy7BjN8KqtVw38sdWYy7MS5IQdW1nKzKAOLj',
+              'SlSrUKA34Wtxgek0vbx9jfpCcTylfy7BjN8KqtVw38sdWYy7MS5IQdW1nKzKAOLj',
           'authorization': 'Token $token',
         },
       );
@@ -100,7 +101,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
       if (response.statusCode == 200) {
         setState(() {
           addresses =
-          List<Map<String, dynamic>>.from(json.decode(response.body));
+              List<Map<String, dynamic>>.from(json.decode(response.body));
           if (addresses.isNotEmpty) {
             selectedAddress = addresses[0];
           }
@@ -125,7 +126,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     super.didChangeDependencies();
 
     final shipCharge =
-    Provider.of<CartRepositoryProvider>(context, listen: false);
+        Provider.of<CartRepositoryProvider>(context, listen: false);
     setState(() {
       totalPrice += shipCharge.cartRepositoryProvider.shipRocketCharges;
     });
@@ -141,7 +142,6 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
       });
 
       try {
-
         Map<String, dynamic> requestData = {
           "full_name": selectedAddress!['full_name'],
           "contact": selectedAddress!['contact'],
@@ -152,13 +152,15 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
           "state": selectedAddress!['state']
               .toString()
               .split('_')
-              .map((word) =>
-          word.isNotEmpty ? '${word[0].toUpperCase()}${word.substring(1).toLowerCase()}' : '')
+              .map((word) => word.isNotEmpty
+                  ? '${word[0].toUpperCase()}${word.substring(1).toLowerCase()}'
+                  : '')
               .join(' '),
           "country": selectedAddress!['country']
               .toString()
               .toLowerCase()
-              .replaceFirstMapped(RegExp(r'^\w'), (match) => match.group(0)!.toUpperCase()),
+              .replaceFirstMapped(
+                  RegExp(r'^\w'), (match) => match.group(0)!.toUpperCase()),
           "gst_in": selectedAddress!['gst_in'],
           "payment_type": "online",
           "shipment_type": shippingType,
@@ -168,7 +170,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
         print('..............required data: $requestData............');
 
         final userPreferences =
-        Provider.of<UserViewModel>(context, listen: false);
+            Provider.of<UserViewModel>(context, listen: false);
         final userModel = await userPreferences.getUser();
         final token = userModel.key;
 
@@ -176,7 +178,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
           'accept': 'application/json',
           'Content-Type': 'application/json',
           'X-CSRFToken':
-          'tUleT0twriskMO0B4VJJM0N7AM9CMwYVUmBxpJOZqur0syeIlChijYkwLDa17MCD',
+              'tUleT0twriskMO0B4VJJM0N7AM9CMwYVUmBxpJOZqur0syeIlChijYkwLDa17MCD',
           'authorization': 'Token $token',
         };
 
@@ -194,7 +196,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
           print('API Response Body: ${apiResponse.body}');
           Utils.toastMessage('Checkout Successfully Done');
           final checkoutDetails =
-          CheckoutreturnModel.fromJson(jsonDecode(apiResponse.body));
+              CheckoutreturnModel.fromJson(jsonDecode(apiResponse.body));
           Navigator.push(
             context,
             MaterialPageRoute(
@@ -209,13 +211,13 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
           Utils.toastMessage('Failed to submit Checkout data');
           Navigator.pushNamed(context, RoutesName.dashboard);
         }
-
       } catch (e) {
         if (e is http.ClientException) {
           Utils.toastMessage('Network error occurred: ${e.message}');
+          log('error: $e');
         } else {
           Utils.toastMessage('Error occurred while processing Checkout: $e');
-          debugPrint('error: $e');
+          log('error:2: $e');
         }
       } finally {
         setState(() {
@@ -234,13 +236,14 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     final userPreferences = Provider.of<UserViewModel>(context, listen: false);
     final userModel = await userPreferences.getUser();
     final token = userModel.key;
-    final url = Uri.parse('https://rajasthandryfruitshouse.com/api/address/$id/');
+    final url =
+        Uri.parse('https://rajasthandryfruitshouse.com/api/address/$id/');
     final response = await http.delete(
       url,
       headers: {
         'accept': 'application/json',
         'X-CSRFToken':
-        'SlSrUKA34Wtxgek0vbx9jfpCcTylfy7BjN8KqtVw38sdWYy7MS5IQdW1nKzKAOLj',
+            'SlSrUKA34Wtxgek0vbx9jfpCcTylfy7BjN8KqtVw38sdWYy7MS5IQdW1nKzKAOLj',
         'authorization': 'Token $token',
       },
     );
@@ -353,11 +356,16 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                   _btn2SelectedVal = newValue;
 
                                   if (newValue == 'normal') {
-                                    totalPrice = double.parse(widget.totalPrice!) +
-                                        shipCharge.cartRepositoryProvider.shipRocketCharges;
+                                    totalPrice =
+                                        double.parse(widget.totalPrice!) +
+                                            shipCharge.cartRepositoryProvider
+                                                .shipRocketCharges;
                                   } else {
-                                    totalPrice = double.parse(widget.totalPrice!) +
-                                        shipCharge.cartRepositoryProvider.shipRocketCharges * 2;
+                                    totalPrice =
+                                        double.parse(widget.totalPrice!) +
+                                            shipCharge.cartRepositoryProvider
+                                                    .shipRocketCharges *
+                                                2;
                                   }
                                 });
                               }
@@ -532,236 +540,290 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                     height: MediaQuery.of(context).size.height / 2.5,
                     child: _isLoadingAddresses
                         ? const Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          CircularProgressIndicator(
-                            color: AppColor.primaryColor,
-                          ),
-                          SizedBox(height: 16),
-                          Text(
-                            "Loading addresses...",
-                            style: TextStyle(
-                              color: AppColor.textColor1,
-                              fontSize: 14,
-                            ),
-                          ),
-                        ],
-                      ),
-                    )
-                        : addresses.isEmpty
-                        ? Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Icons.location_off_outlined,
-                            size: 48,
-                            color: Colors.grey[400],
-                          ),
-                          const SizedBox(height: 16),
-                          Text(
-                            "No addresses found",
-                            style: GoogleFonts.getFont(
-                              "Poppins",
-                              textStyle: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w400,
-                                color: Colors.grey[600],
-                              ),
-                            ),
-                          ),
-                          const SizedBox(height: 8),
-                          Text(
-                            "Add a new address to continue",
-                            style: GoogleFonts.getFont(
-                              "Poppins",
-                              textStyle: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w300,
-                                color: Colors.grey[500],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    )
-                        : ListView.builder(
-                      itemCount: addresses.length,
-                      itemBuilder: (context, index) {
-                        final address = addresses[index];
-                        final isSelected = address == selectedAddress;
-
-                        return Padding(
-                          padding: const EdgeInsets.only(bottom: 16.0),
-                          child: Container(
-                            height: 100,
-                            width: MediaQuery.of(context).size.width,
-                            decoration: BoxDecoration(
-                              color: const Color.fromRGBO(255, 255, 255, 0.2),
-                              borderRadius: BorderRadius.circular(10),
-                              border: Border.all(width: 2, color: AppColor.primaryColor),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.white.withOpacity(0.5),
-                                  blurRadius: 2,
-                                  spreadRadius: 0,
-                                  offset: const Offset(0, 0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                CircularProgressIndicator(
+                                  color: AppColor.primaryColor,
+                                ),
+                                SizedBox(height: 16),
+                                Text(
+                                  "Loading addresses...",
+                                  style: TextStyle(
+                                    color: AppColor.textColor1,
+                                    fontSize: 14,
+                                  ),
                                 ),
                               ],
                             ),
-                            child: Padding(
-                              padding: const EdgeInsets.only(right: 10.0, left: 10.0),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.only(top: 20.0),
-                                        child: InkWell(
-                                          onTap: () {
-                                            setState(() {
-                                              selectedAddress = address;
-                                            });
-                                            debugPrint('address $selectedAddress');
-                                          },
-                                          child: Container(
-                                            height: 16,
-                                            width: 16,
-                                            decoration: BoxDecoration(
-                                              border: Border.all(color: AppColor.primaryColor),
-                                              color: isSelected
-                                                  ? AppColor.primaryColor
-                                                  : Colors.transparent,
-                                            ),
-                                          ),
+                          )
+                        : addresses.isEmpty
+                            ? Center(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.location_off_outlined,
+                                      size: 48,
+                                      color: Colors.grey[400],
+                                    ),
+                                    const SizedBox(height: 16),
+                                    Text(
+                                      "No addresses found",
+                                      style: GoogleFonts.getFont(
+                                        "Poppins",
+                                        textStyle: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w400,
+                                          color: Colors.grey[600],
                                         ),
                                       ),
-                                      const SizedBox(width: 20.0),
-                                      Column(
-                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Text.rich(
-                                            TextSpan(
-                                              text: address['full_name'],
-                                              style: const TextStyle(
-                                                fontFamily: 'CenturyGothic',
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.bold,
-                                                color: AppColor.primaryColor,
-                                              ),
-                                              children: <TextSpan>[
-                                                TextSpan(
-                                                  text: '\n${address['contact'] ?? ''}\n',
-                                                  style: const TextStyle(
-                                                    color: AppColor.textColor1,
-                                                    fontWeight: FontWeight.w400,
-                                                    fontSize: 14.0,
+                                    ),
+                                    const SizedBox(height: 8),
+                                    Text(
+                                      "Add a new address to continue",
+                                      style: GoogleFonts.getFont(
+                                        "Poppins",
+                                        textStyle: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w300,
+                                          color: Colors.grey[500],
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            : ListView.builder(
+                                itemCount: addresses.length,
+                                itemBuilder: (context, index) {
+                                  final address = addresses[index];
+                                  final isSelected = address == selectedAddress;
+
+                                  return Padding(
+                                    padding:
+                                        const EdgeInsets.only(bottom: 16.0),
+                                    child: Container(
+                                      height: 100,
+                                      width: MediaQuery.of(context).size.width,
+                                      decoration: BoxDecoration(
+                                        color: const Color.fromRGBO(
+                                            255, 255, 255, 0.2),
+                                        borderRadius: BorderRadius.circular(10),
+                                        border: Border.all(
+                                            width: 2,
+                                            color: AppColor.primaryColor),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color:
+                                                Colors.white.withOpacity(0.5),
+                                            blurRadius: 2,
+                                            spreadRadius: 0,
+                                            offset: const Offset(0, 0),
+                                          ),
+                                        ],
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(
+                                            right: 10.0, left: 10.0),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          top: 20.0),
+                                                  child: InkWell(
+                                                    onTap: () {
+                                                      setState(() {
+                                                        selectedAddress =
+                                                            address;
+                                                      });
+                                                      debugPrint(
+                                                          'address $selectedAddress');
+                                                    },
+                                                    child: Container(
+                                                      height: 16,
+                                                      width: 16,
+                                                      decoration: BoxDecoration(
+                                                        border: Border.all(
+                                                            color: AppColor
+                                                                .primaryColor),
+                                                        color: isSelected
+                                                            ? AppColor
+                                                                .primaryColor
+                                                            : Colors
+                                                                .transparent,
+                                                      ),
+                                                    ),
                                                   ),
                                                 ),
-                                                TextSpan(
-                                                  text: (() {
-                                                    String fullText =
-                                                        '${address['address'] ?? ''}, ${address['city'] ?? ''} ${address['state'] ?? ''} ${address['postal_code'] ?? ''} ${address['gst'] ?? ''}';
-                                                    return fullText.length > 20
-                                                        ? '${fullText.substring(0, 20)}...'
-                                                        : fullText;
-                                                  })(),
-                                                  style: const TextStyle(
+                                                const SizedBox(width: 20.0),
+                                                Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceAround,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text.rich(
+                                                      TextSpan(
+                                                        text: address[
+                                                            'full_name'],
+                                                        style: const TextStyle(
+                                                          fontFamily:
+                                                              'CenturyGothic',
+                                                          fontSize: 18,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: AppColor
+                                                              .primaryColor,
+                                                        ),
+                                                        children: <TextSpan>[
+                                                          TextSpan(
+                                                            text:
+                                                                '\n${address['contact'] ?? ''}\n',
+                                                            style:
+                                                                const TextStyle(
+                                                              color: AppColor
+                                                                  .textColor1,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w400,
+                                                              fontSize: 14.0,
+                                                            ),
+                                                          ),
+                                                          TextSpan(
+                                                            text: (() {
+                                                              String fullText =
+                                                                  '${address['address'] ?? ''}, ${address['city'] ?? ''} ${address['state'] ?? ''} ${address['postal_code'] ?? ''} ${address['gst'] ?? ''}';
+                                                              return fullText
+                                                                          .length >
+                                                                      20
+                                                                  ? '${fullText.substring(0, 20)}...'
+                                                                  : fullText;
+                                                            })(),
+                                                            style:
+                                                                const TextStyle(
+                                                              color: AppColor
+                                                                  .textColor1,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w400,
+                                                              fontSize: 14.0,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                            Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceAround,
+                                              children: [
+                                                IconButton(
+                                                  onPressed: () async {
+                                                    final result =
+                                                        await Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            EditAddress(
+                                                          address,
+                                                          address['id'],
+                                                          false,
+                                                        ),
+                                                      ),
+                                                    );
+                                                    // Refetch addresses when returning from EditAddress
+                                                    if (result == true ||
+                                                        result == null) {
+                                                      fetchAddresses();
+                                                    }
+                                                  },
+                                                  icon: const Icon(
+                                                    Icons.edit,
                                                     color: AppColor.textColor1,
-                                                    fontWeight: FontWeight.w400,
-                                                    fontSize: 14.0,
+                                                  ),
+                                                ),
+                                                IconButton(
+                                                  onPressed: _isLoadingAddresses
+                                                      ? null // Disable delete button while loading
+                                                      : () {
+                                                          // Show confirmation dialog
+                                                          showDialog(
+                                                            context: context,
+                                                            builder:
+                                                                (BuildContext
+                                                                    context) {
+                                                              return AlertDialog(
+                                                                title: const Text(
+                                                                    'Delete Address'),
+                                                                content: const Text(
+                                                                    'Are you sure you want to delete this address?'),
+                                                                actions: [
+                                                                  TextButton(
+                                                                    onPressed:
+                                                                        () {
+                                                                      Navigator.of(
+                                                                              context)
+                                                                          .pop();
+                                                                    },
+                                                                    child: const Text(
+                                                                        'Cancel'),
+                                                                  ),
+                                                                  TextButton(
+                                                                    onPressed:
+                                                                        () {
+                                                                      Navigator.of(
+                                                                              context)
+                                                                          .pop();
+                                                                      _deleteAddress(
+                                                                          address[
+                                                                              'id']);
+                                                                    },
+                                                                    child:
+                                                                        const Text(
+                                                                      'Delete',
+                                                                      style: TextStyle(
+                                                                          color:
+                                                                              Colors.red),
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              );
+                                                            },
+                                                          );
+                                                        },
+                                                  icon: Icon(
+                                                    Icons.delete,
+                                                    color: _isLoadingAddresses
+                                                        ? Colors.grey
+                                                        : AppColor.textColor1,
                                                   ),
                                                 ),
                                               ],
                                             ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                    children: [
-                                      IconButton(
-                                        onPressed: () async {
-                                          final result = await Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) => EditAddress(
-                                                address,
-                                                address['id'],
-                                                false,
-                                              ),
-                                            ),
-                                          );
-                                          // Refetch addresses when returning from EditAddress
-                                          if (result == true || result == null) {
-                                            fetchAddresses();
-                                          }
-                                        },
-                                        icon: const Icon(
-                                          Icons.edit,
-                                          color: AppColor.textColor1,
+                                          ],
                                         ),
                                       ),
-                                      IconButton(
-                                        onPressed: _isLoadingAddresses
-                                            ? null // Disable delete button while loading
-                                            : () {
-                                          // Show confirmation dialog
-                                          showDialog(
-                                            context: context,
-                                            builder: (BuildContext context) {
-                                              return AlertDialog(
-                                                title: const Text('Delete Address'),
-                                                content: const Text(
-                                                    'Are you sure you want to delete this address?'),
-                                                actions: [
-                                                  TextButton(
-                                                    onPressed: () {
-                                                      Navigator.of(context).pop();
-                                                    },
-                                                    child: const Text('Cancel'),
-                                                  ),
-                                                  TextButton(
-                                                    onPressed: () {
-                                                      Navigator.of(context).pop();
-                                                      _deleteAddress(address['id']);
-                                                    },
-                                                    child: const Text(
-                                                      'Delete',
-                                                      style: TextStyle(color: Colors.red),
-                                                    ),
-                                                  ),
-                                                ],
-                                              );
-                                            },
-                                          );
-                                        },
-                                        icon: Icon(
-                                          Icons.delete,
-                                          color: _isLoadingAddresses
-                                              ? Colors.grey
-                                              : AppColor.textColor1,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
+                                    ),
+                                  );
+                                },
                               ),
-                            ),
-                          ),
-                        );
-                      },
-                    ),
                   ),
-
                   const VerticalSpeacing(50),
                   RoundedButton(
                     title: "Proceed to Checkout",

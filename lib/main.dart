@@ -8,8 +8,6 @@ import 'package:rjfruits/repository/search_section_ui.dart';
 import 'package:rjfruits/utils/fcm.dart';
 import 'package:rjfruits/utils/routes/routes.dart';
 import 'package:rjfruits/utils/routes/routes_name.dart';
-import 'package:rjfruits/view/authView/login_view.dart';
-import 'package:rjfruits/view/authView/register_view.dart';
 import 'package:rjfruits/view_model/auth_view_model.dart';
 import 'package:rjfruits/view_model/cart_view_model.dart';
 import 'package:rjfruits/view_model/home_view_model.dart';

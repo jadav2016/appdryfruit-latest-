@@ -35,7 +35,7 @@ class AuthViewModel with ChangeNotifier {
   Future<void> loginApi(dynamic data, BuildContext context) async {
     _isLoading = true;
     notifyListeners();
-log('Working');
+    log('Working');
     try {
       final dio = Dio();
 
@@ -43,20 +43,21 @@ log('Working');
         'accept': 'application/json',
         'Content-Type': 'application/json',
         'X-CSRFToken':
-        ' XjM64o8umW9Tog5kpUyPTyZg3hW4OoXupvilLAmzvFfATCjQrBGe2cN89tPjxsKm',
+            ' XjM64o8umW9Tog5kpUyPTyZg3hW4OoXupvilLAmzvFfATCjQrBGe2cN89tPjxsKm',
       };
 
       final response = await dio.post(
-          AppUrl.loginEndPoint,
-          options: Options(headers: headers),
-          data: data,
+        AppUrl.loginEndPoint,
+        options: Options(headers: headers),
+        data: data,
       );
 
       _isLoading = false;
       Utils.toastMessage('Successfully Logged In');
       await SessionManager.setLoggedIn(true);
 
-      final userPreferences = Provider.of<UserViewModel>(context, listen: false);
+      final userPreferences =
+          Provider.of<UserViewModel>(context, listen: false);
       userPreferences.saveUser(UserModel(key: response.data['key'].toString()));
 
       Navigator.pushNamedAndRemoveUntil(
@@ -91,7 +92,6 @@ log('Working');
       if (kDebugMode) {
         debugPrint('DioError: ${error.response?.data ?? error.message}');
       }
-
     } catch (error) {
       _isLoading = false;
 
@@ -106,6 +106,7 @@ log('Working');
       notifyListeners();
     }
   }
+
   Future<void> registerDevice(dynamic data, BuildContext context) async {
     final userPreferences = Provider.of<UserViewModel>(context, listen: false);
     final userModel = await userPreferences.getUser();
@@ -122,11 +123,12 @@ log('Working');
         'accept': 'application/json',
         'Content-Type': 'application/json',
         'X-CSRFToken':
-        ' XjM64o8umW9Tog5kpUyPTyZg3hW4OoXupvilLAmzvFfATCjQrBGe2cN89tPjxsKm',
+            'XjM64o8umW9Tog5kpUyPTyZg3hW4OoXupvilLAmzvFfATCjQrBGe2cN89tPjxsKm',
       };
 
-      log('Data11111${data}');
-      log('URL${ AppUrl.registerDevice}');
+      log('headers $headers');
+      log('Data11111 $data');
+      log('URL ${AppUrl.registerDevice}');
 
       final response = await dio.post(
         AppUrl.registerDevice,
@@ -134,24 +136,18 @@ log('Working');
         data: data,
       );
       log('Token send Success${response.toString()}');
-
     } on DioError catch (error) {
-
-
       if (kDebugMode) {
         debugPrint('DioError001: ${error.response?.data ?? error.message}');
       }
     } catch (error) {
-
       if (kDebugMode) {
         debugPrint('Unexpected Error: $error');
       }
     } finally {
-
       notifyListeners();
     }
   }
-
 
   Future<void> signUpApi(Map<String, String> data, BuildContext context) async {
     _isLoading = true;
@@ -205,17 +201,20 @@ log('Working');
       final responseData = error.response?.data;
 
       if (responseData is Map<String, dynamic>) {
-        final errorMessages = responseData.entries.map((entry) {
-          final key = entry.key;
-          final value = entry.value;
+        final errorMessages = responseData.entries
+            .map((entry) {
+              final key = entry.key;
+              final value = entry.value;
 
-          if (value is List) {
-            return "$key: ${value.join(", ")}";
-          } else if (value is String) {
-            return "$key: $value";
-          }
-          return null;
-        }).where((message) => message != null).join("\n");
+              if (value is List) {
+                return "$key: ${value.join(", ")}";
+              } else if (value is String) {
+                return "$key: $value";
+              }
+              return null;
+            })
+            .where((message) => message != null)
+            .join("\n");
 
         if (errorMessages.isNotEmpty) {
           return errorMessages;
@@ -236,7 +235,6 @@ log('Working');
         return 'An unexpected error occurred.';
     }
   }
-
 }
 
 class SessionManager {

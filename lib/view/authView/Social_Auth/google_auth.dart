@@ -20,7 +20,7 @@ import 'dart:io';
 
 class GoogleAuthButton extends StatefulWidget {
   final AuthViewModel viewModel;
-  const GoogleAuthButton({super.key,required this.viewModel});
+  const GoogleAuthButton({super.key, required this.viewModel});
 
   @override
   State<GoogleAuthButton> createState() => _GoogleAuthButtonState();
@@ -31,10 +31,12 @@ class _GoogleAuthButtonState extends State<GoogleAuthButton> {
 
   final GoogleSignIn _googleSignIn = (Platform.isIOS || Platform.isMacOS)
       ? GoogleSignIn(
-          clientId:
-              '176072233182-iqia1q2csceasnrhlnbj132u6387j4al.apps.googleusercontent.com',
+          // clientId:
+          //     '176072233182-iqia1q2csceasnrhlnbj132u6387j4al.apps.googleusercontent.com',
+          // serverClientId:
+          //     '176072233182-e1e7vo2gv1nq03m2v4tvjq1e6kon9gco.apps.googleusercontent.com',
           serverClientId:
-              '176072233182-e1e7vo2gv1nq03m2v4tvjq1e6kon9gco.apps.googleusercontent.com',
+              '6073014342-83hpeui69frg5hoc8a1pkes90lvlb7r7.apps.googleusercontent.com',
           scopes: [
             'email',
             'profile',
@@ -42,12 +44,15 @@ class _GoogleAuthButtonState extends State<GoogleAuthButton> {
           ],
         )
       : GoogleSignIn(
+          serverClientId:
+              '6073014342-83hpeui69frg5hoc8a1pkes90lvlb7r7.apps.googleusercontent.com',
           scopes: [
             'email',
             'profile',
             'openid',
           ],
         );
+
   Future<void> handleSignOut() => _googleSignIn.disconnect();
 
   Future<void> handleGoogleSignIn(BuildContext context) async {
@@ -63,10 +68,14 @@ class _GoogleAuthButtonState extends State<GoogleAuthButton> {
           await googleSignInAccount!.authentication;
 
       final String accessToken = googleSignInAuthentication.accessToken ?? '';
-      final String idToken = googleSignInAuthentication.idToken ?? '';
-      debugPrint('accessToken:$accessToken');
 
-      handleGoogleLoginServer(context, accessToken, idToken);
+      final String idToken = googleSignInAuthentication.idToken ?? '';
+      final String serverAuthCode = googleSignInAccount.serverAuthCode ?? '';
+
+      debugPrint('accessToken:$accessToken');
+      // debugPrint('serverAuthCode:$serverAuthCode');
+
+      handleGoogleLoginServer(context, accessToken, idToken, serverAuthCode);
       // }
     } catch (error) {
       log('error.toString()${error.toString()}');
@@ -75,11 +84,15 @@ class _GoogleAuthButtonState extends State<GoogleAuthButton> {
     }
   }
 
-  Future<void> handleGoogleLoginServer(
-      BuildContext context, String accessToken, String idToken) async {
-    Map data = {'access_token': accessToken, 'code': '', 'id_token': idToken};
+  Future<void> handleGoogleLoginServer(BuildContext context, String accessToken,
+      String idToken, String serverAuthCode) async {
+    Map data = {
+      'access_token': accessToken,
+      // 'code': '',
+      // 'id_token': idToken,
+    };
 
-    debugPrint("google login data:${data}");
+    log("google login data:KK: $data");
 
     _isLoading = true;
     try {
@@ -96,13 +109,15 @@ class _GoogleAuthButtonState extends State<GoogleAuthButton> {
         data: data,
       );
 
-      debugPrint("Response status code: ${response.statusCode}");
-      debugPrint("Response body: ${response.data}");
-      debugPrint("Response status: ${response.statusCode}");
+      log("Response status code: ${response.statusCode}");
+      log("Response body: ${response.data}");
+      log("Response status: ${response.statusCode}");
 
       if (response.statusCode == 200) {
         Map<String, dynamic> responseBody = response.data;
         String key = responseBody['key'].toString();
+
+        ///
         final userPrefrences =
             Provider.of<UserViewModel>(context, listen: false);
         userPrefrences.saveUser(UserModel(key: key));
@@ -114,9 +129,11 @@ class _GoogleAuthButtonState extends State<GoogleAuthButton> {
         _isLoading = false;
         Utils.flushBarErrorMessage('Login Failed', context);
       }
-    } catch (error) {
+    } on DioException catch (error) {
       Utils.flushBarErrorMessage(error.toString(), context);
-      debugPrint('error mesg: $error');
+      log('error handleGoogleLoginServer: ${error.response!.statusCode}');
+      log('error handleGoogleLoginServer: ${error.response!.data}');
+      log('error handleGoogleLoginServer: $error');
     } finally {
       _isLoading = false;
     }
@@ -141,13 +158,10 @@ class _GoogleAuthButtonState extends State<GoogleAuthButton> {
                   padding: EdgeInsets.zero,
                   //color: Color.t,
                   onPressed: () async {
-
-
-
-
                     debugPrint('click google sign in');
-                    await handleGoogleSignIn(context).then((v)async{
-                      String fcmToken = await NotificationServices().getDeviceToken();
+                    await handleGoogleSignIn(context).then((v) async {
+                      String fcmToken =
+                          await NotificationServices().getDeviceToken();
                       Map<String, String> data2 = {
                         'registration_id': fcmToken,
                         'application_id': 'my_fcm_app',
