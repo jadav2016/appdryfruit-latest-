@@ -22,6 +22,14 @@
           }
         },
         {
+          "client_id": "6073014342-kfk7v5s1fiptcb3spo9ukrq5tuvfeurl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rjfruits",
+            "certificate_hash": "b43c7d6595d2b559a6d2bd88a50d705b55c65530"
+          }
+        },
+        {
           "client_id": "6073014342-ts67a535lm33s3juhom1686qb2uu2b9r.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

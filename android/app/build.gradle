@@ -55,7 +55,8 @@
         }
 
         lintOptions {
-            abortOnError false
+            disable 'InvalidPackage'
+            checkReleaseBuilds false //Insert this line
         }
 
         defaultConfig {
@@ -83,13 +84,13 @@
 
         buildTypes {
             release {
-                signingConfig signingConfigs.debug
+                signingConfig signingConfigs.release
                 minifyEnabled true
                 shrinkResources true
                 proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-                ndk {
-                    debugSymbolLevel 'none' // or 'full' if you want symbols for crash reporting
-                }
+//                ndk {
+//                    debugSymbolLevel 'none' // or 'full' if you want symbols for crash reporting
+//                }
             }
     //        debug {
     ////            signingConfig signingConfigs.debug
