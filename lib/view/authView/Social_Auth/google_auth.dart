@@ -29,12 +29,32 @@ class GoogleAuthButton extends StatefulWidget {
 class _GoogleAuthButtonState extends State<GoogleAuthButton> {
   bool _isLoading = false;
 
-  final GoogleSignIn _googleSignIn = (Platform.isIOS || Platform.isMacOS)
+  // final GoogleSignIn _googleSignIn = (Platform.isIOS || Platform.isMacOS)
+  //     ? GoogleSignIn(
+  //         // clientId:
+  //         //     '176072233182-iqia1q2csceasnrhlnbj132u6387j4al.apps.googleusercontent.com',
+  //         // serverClientId:
+  //         //     '176072233182-e1e7vo2gv1nq03m2v4tvjq1e6kon9gco.apps.googleusercontent.com',
+  //         serverClientId:
+  //             '6073014342-83hpeui69frg5hoc8a1pkes90lvlb7r7.apps.googleusercontent.com',
+  //         scopes: [
+  //           'email',
+  //           'profile',
+  //           'openid',
+  //         ],
+  //       )
+  //     : GoogleSignIn(
+  //         serverClientId:
+  //             '6073014342-83hpeui69frg5hoc8a1pkes90lvlb7r7.apps.googleusercontent.com',
+  //         scopes: [
+  //           'email',
+  //           'profile',
+  //           'openid',
+  //         ],
+  //       );
+
+  final GoogleSignIn _googleSignIn = Platform.isIOS
       ? GoogleSignIn(
-          // clientId:
-          //     '176072233182-iqia1q2csceasnrhlnbj132u6387j4al.apps.googleusercontent.com',
-          // serverClientId:
-          //     '176072233182-e1e7vo2gv1nq03m2v4tvjq1e6kon9gco.apps.googleusercontent.com',
           serverClientId:
               '6073014342-83hpeui69frg5hoc8a1pkes90lvlb7r7.apps.googleusercontent.com',
           scopes: [
@@ -44,14 +64,14 @@ class _GoogleAuthButtonState extends State<GoogleAuthButton> {
           ],
         )
       : GoogleSignIn(
-          serverClientId:
-              '6073014342-83hpeui69frg5hoc8a1pkes90lvlb7r7.apps.googleusercontent.com',
-          scopes: [
-            'email',
-            'profile',
-            'openid',
-          ],
-        );
+          // serverClientId:
+          //     '6073014342-83hpeui69frg5hoc8a1pkes90lvlb7r7.apps.googleusercontent.com',
+          // scopes: [
+          //   'email',
+          //   'profile',
+          //   'openid',
+          // ],
+          );
 
   Future<void> handleSignOut() => _googleSignIn.disconnect();
 
@@ -63,9 +83,18 @@ class _GoogleAuthButtonState extends State<GoogleAuthButton> {
       final GoogleSignInAccount? googleSignInAccount =
           await _googleSignIn.signIn();
 
+      if (googleSignInAccount == null) {
+        // User cancelled the sign-in
+        log('Google Sign-In cancelled by user');
+        setState(() {
+          _isLoading = false;
+        });
+        return;
+      }
+
       // if (googleSignInAccount != null) {
       final GoogleSignInAuthentication googleSignInAuthentication =
-          await googleSignInAccount!.authentication;
+          await googleSignInAccount.authentication;
 
       final String accessToken = googleSignInAuthentication.accessToken ?? '';
 
@@ -79,7 +108,8 @@ class _GoogleAuthButtonState extends State<GoogleAuthButton> {
       // }
     } catch (error) {
       log('error.toString()${error.toString()}');
-      // Utils.flushBarErrorMessage(error.toString(), context);
+      Utils.flushBarErrorMessage(
+          'Sign in Failed, ${error.toString()}', context);
       debugPrint('error mesg: $error');
     }
   }

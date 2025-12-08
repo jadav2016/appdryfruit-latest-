@@ -51,7 +51,8 @@ void main() async {
   // Guard initialization so we don't try to initialize more than once.
   if (Firebase.apps.isEmpty) {
     try {
-      await Firebase.initializeApp(options: firebaseOptions);
+      await Firebase.initializeApp(
+          name: 'Rajasthan Dry Fruit', options: firebaseOptions);
     } on FirebaseException catch (e) {
       if (e.code != 'duplicate-app') rethrow;
       // otherwise, Firebase already initialized — safe to continue

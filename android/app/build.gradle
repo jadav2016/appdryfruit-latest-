@@ -34,7 +34,7 @@
         compileSdk flutter.compileSdkVersion
         ndkVersion "26.1.10909125"
 
-        compileSdkVersion 35
+        compileSdkVersion 36
 
         compileOptions {
             sourceCompatibility JavaVersion.VERSION_1_8
@@ -62,9 +62,9 @@
         defaultConfig {
             applicationId "com.rjfruits"
             minSdkVersion 23
-            targetSdkVersion 35
-            versionCode flutterVersionCode.toInteger()
-            versionName flutterVersionName
+            targetSdkVersion 36
+            versionCode 30
+            versionName "1.0.9"
         }
 
         signingConfigs {
@@ -88,9 +88,9 @@
                 minifyEnabled true
                 shrinkResources true
                 proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-//                ndk {
-//                    debugSymbolLevel 'none' // or 'full' if you want symbols for crash reporting
-//                }
+            //    ndk {
+            //        debugSymbolLevel 'none' // or 'full' if you want symbols for crash reporting
+            //    }
             }
     //        debug {
     ////            signingConfig signingConfigs.debug

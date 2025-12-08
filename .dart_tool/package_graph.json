@@ -5,7 +5,7 @@
   "packages": [
     {
       "name": "rjfruits",
-      "version": "1.0.6+24",
+      "version": "1.0.8+28",
       "dependencies": [
         "another_flushbar",
         "carousel_slider",
