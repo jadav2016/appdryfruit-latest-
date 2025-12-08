@@ -14,6 +14,10 @@
       },
       "oauth_client": [
         {
+          "client_id": "6073014342-83hpeui69frg5hoc8a1pkes90lvlb7r7.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
           "client_id": "6073014342-2p51kmd29cg4dnjnhjnfj0n7a1a7e6jm.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -44,10 +48,6 @@
             "package_name": "com.rjfruits",
             "certificate_hash": "02d0bb58c15fe27ad15779f3dbb8f85fd903c8a4"
           }
-        },
-        {
-          "client_id": "6073014342-83hpeui69frg5hoc8a1pkes90lvlb7r7.apps.googleusercontent.com",
-          "client_type": 3
         }
       ],
       "api_key": [
