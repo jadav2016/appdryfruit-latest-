@@ -63,8 +63,8 @@
             applicationId "com.rjfruits"
             minSdkVersion 23
             targetSdkVersion 36
-            versionCode 30
-            versionName "1.0.9"
+            versionCode 32
+            versionName "1.0.11"
         }
 
         signingConfigs {
@@ -109,8 +109,12 @@
         // ✅ Add Firebase Messaging
         implementation 'com.google.firebase:firebase-messaging'
 
+        // implementation 'androidx.credentials:credentials:1.2.2'
+        // implementation 'androidx.credentials:credentials-play-services-auth:1.2.2'
+        // implementation 'com.google.android.libraries.identity.googleid:googleid:1.1.0'
+
         // Optional: Google Sign-In, keep if needed
-        implementation 'com.google.android.gms:play-services-auth:20.7.0'
+        implementation 'com.google.android.gms:play-services-auth:16.0.1'
 //        coreLibraryDesugaring "com.android.tools:desugar_jdk_libs:2.0.4"
         coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.1.4'
     }

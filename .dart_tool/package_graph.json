@@ -100,7 +100,7 @@
     },
     {
       "name": "firebase_messaging",
-      "version": "16.0.3",
+      "version": "16.0.4",
       "dependencies": [
         "firebase_core",
         "firebase_core_platform_interface",
@@ -124,7 +124,7 @@
     },
     {
       "name": "firebase_core",
-      "version": "4.2.0",
+      "version": "4.2.1",
       "dependencies": [
         "firebase_core_platform_interface",
         "firebase_core_web",
@@ -158,7 +158,7 @@
     },
     {
       "name": "image_picker",
-      "version": "1.2.0",
+      "version": "1.2.1",
       "dependencies": [
         "flutter",
         "image_picker_android",
@@ -225,12 +225,11 @@
     },
     {
       "name": "uuid",
-      "version": "4.5.1",
+      "version": "4.5.2",
       "dependencies": [
         "crypto",
         "fixnum",
-        "meta",
-        "sprintf"
+        "meta"
       ]
     },
     {
@@ -319,7 +318,7 @@
     },
     {
       "name": "google_sign_in",
-      "version": "6.3.0",
+      "version": "7.2.0",
       "dependencies": [
         "flutter",
         "google_sign_in_android",
@@ -381,7 +380,7 @@
     },
     {
       "name": "http",
-      "version": "1.5.0",
+      "version": "1.6.0",
       "dependencies": [
         "async",
         "http_parser",
@@ -639,7 +638,7 @@
     },
     {
       "name": "firebase_messaging_web",
-      "version": "4.0.3",
+      "version": "4.1.0",
       "dependencies": [
         "_flutterfire_internals",
         "firebase_core",
@@ -653,7 +652,7 @@
     },
     {
       "name": "firebase_messaging_platform_interface",
-      "version": "4.7.3",
+      "version": "4.7.4",
       "dependencies": [
         "_flutterfire_internals",
         "firebase_core",
@@ -714,7 +713,7 @@
     },
     {
       "name": "firebase_core_web",
-      "version": "3.2.0",
+      "version": "3.3.0",
       "dependencies": [
         "firebase_core_platform_interface",
         "flutter",
@@ -854,7 +853,7 @@
     },
     {
       "name": "image_picker_for_web",
-      "version": "3.1.0",
+      "version": "3.1.1",
       "dependencies": [
         "flutter",
         "flutter_web_plugins",
@@ -940,7 +939,7 @@
     },
     {
       "name": "url_launcher_linux",
-      "version": "3.2.1",
+      "version": "3.2.2",
       "dependencies": [
         "flutter",
         "url_launcher_platform_interface"
@@ -948,7 +947,7 @@
     },
     {
       "name": "url_launcher_windows",
-      "version": "3.1.4",
+      "version": "3.1.5",
       "dependencies": [
         "flutter",
         "url_launcher_platform_interface"
@@ -1004,7 +1003,7 @@
     },
     {
       "name": "cross_file",
-      "version": "0.3.5",
+      "version": "0.3.5+1",
       "dependencies": [
         "meta",
         "web"
@@ -1047,13 +1046,8 @@
       "dependencies": []
     },
     {
-      "name": "sprintf",
-      "version": "7.0.0",
-      "dependencies": []
-    },
-    {
       "name": "crypto",
-      "version": "3.0.6",
+      "version": "3.0.7",
       "dependencies": [
         "typed_data"
       ]
@@ -1210,7 +1204,7 @@
     },
     {
       "name": "google_sign_in_web",
-      "version": "0.12.4+4",
+      "version": "1.1.0",
       "dependencies": [
         "flutter",
         "flutter_web_plugins",
@@ -1222,7 +1216,7 @@
     },
     {
       "name": "google_sign_in_platform_interface",
-      "version": "2.5.0",
+      "version": "3.1.0",
       "dependencies": [
         "flutter",
         "plugin_platform_interface"
@@ -1230,7 +1224,7 @@
     },
     {
       "name": "google_sign_in_ios",
-      "version": "5.9.0",
+      "version": "6.2.1",
       "dependencies": [
         "flutter",
         "google_sign_in_platform_interface"
@@ -1238,7 +1232,7 @@
     },
     {
       "name": "google_sign_in_android",
-      "version": "6.2.1",
+      "version": "7.2.1",
       "dependencies": [
         "flutter",
         "google_sign_in_platform_interface"
@@ -1341,7 +1335,7 @@
     },
     {
       "name": "_flutterfire_internals",
-      "version": "1.3.63",
+      "version": "1.3.64",
       "dependencies": [
         "collection",
         "firebase_core",
@@ -1437,7 +1431,7 @@
     },
     {
       "name": "file_selector_windows",
-      "version": "0.9.3+4",
+      "version": "0.9.3+5",
       "dependencies": [
         "cross_file",
         "file_selector_platform_interface",
@@ -1446,7 +1440,7 @@
     },
     {
       "name": "file_selector_platform_interface",
-      "version": "2.6.2",
+      "version": "2.7.0",
       "dependencies": [
         "cross_file",
         "flutter",
@@ -1465,7 +1459,7 @@
     },
     {
       "name": "file_selector_linux",
-      "version": "0.9.3+2",
+      "version": "0.9.4",
       "dependencies": [
         "cross_file",
         "file_selector_platform_interface",

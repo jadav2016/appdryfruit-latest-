@@ -14,26 +14,6 @@
       },
       "oauth_client": [
         {
-          "client_id": "6073014342-83hpeui69frg5hoc8a1pkes90lvlb7r7.apps.googleusercontent.com",
-          "client_type": 3
-        },
-        {
-          "client_id": "6073014342-2p51kmd29cg4dnjnhjnfj0n7a1a7e6jm.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.rjfruits",
-            "certificate_hash": "ed0b2115d9e57934492995b723acc673edafc2b9"
-          }
-        },
-        {
-          "client_id": "6073014342-c99en2nh5v9sejsvsihr2k0e4b7elh4c.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.rjfruits",
-            "certificate_hash": "038e129d24e6ab05789165843451b7d082119030"
-          }
-        },
-        {
           "client_id": "6073014342-kfk7v5s1fiptcb3spo9ukrq5tuvfeurl.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -48,6 +28,10 @@
             "package_name": "com.rjfruits",
             "certificate_hash": "02d0bb58c15fe27ad15779f3dbb8f85fd903c8a4"
           }
+        },
+        {
+          "client_id": "6073014342-83hpeui69frg5hoc8a1pkes90lvlb7r7.apps.googleusercontent.com",
+          "client_type": 3
         }
       ],
       "api_key": [
@@ -59,14 +43,14 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "6073014342-2te8tq4ngi29jnoe3d1b81nc9pn83keb.apps.googleusercontent.com",
+              "client_id": "6073014342-83hpeui69frg5hoc8a1pkes90lvlb7r7.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "6073014342-ca8n2ji8mn49f8np2h93olq2qfvi37o5.apps.googleusercontent.com",
+              "client_id": "6073014342-qvbkjuc09nrnrbiijvlsrk5bpt11mlgt.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.rjfruits.ios"
+                "bundle_id": "com.rjfruits"
               }
             }
           ]
