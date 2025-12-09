@@ -10,4 +10,12 @@
 -dontwarn io.flutter.embedding.*
 -ignorewarnings
 
+# Google Sign-In ProGuard rules
+-keep class com.google.android.gms.auth.** { *; }
+-keep class com.google.android.gms.common.** { *; }
+-keep class com.google.api.client.** { *; }
+-keepattributes *Annotation*
+-keepattributes Signature
+-keepattributes Exceptions
+
 

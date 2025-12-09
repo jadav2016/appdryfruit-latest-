@@ -63,8 +63,8 @@
             applicationId "com.rjfruits"
             minSdkVersion 23
             targetSdkVersion 36
-            versionCode 30
-            versionName "1.0.9"
+            versionCode flutterVersionCode.toInteger()
+            versionName flutterVersionName
         }
 
         signingConfigs {
